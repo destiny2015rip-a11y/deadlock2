@@ -13,4 +13,4 @@ export const openai = new OpenAI({
   },
 });
 
-export const DEFAULT_MODEL = process.env.OPENROUTER_MODEL || 'google/gemma-2-9b-it:free';
+export const DEFAULT_MODEL = process.env.OPENROUTER_MODEL || 'google/gemma-4-26b-a4b-it:free';

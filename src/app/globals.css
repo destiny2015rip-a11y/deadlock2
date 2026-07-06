@@ -59,4 +59,12 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  
+  .mask-gradient-left {
+    mask-image: linear-gradient(to right, black 50%, transparent 100%);
+  }
+  
+  .mask-gradient-right {
+    mask-image: linear-gradient(to left, black 50%, transparent 100%);
+  }
 }

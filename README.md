@@ -14,7 +14,7 @@ A fullstack web application that provides real-time strategic advice for Deadloc
 
 - **Framework**: [Next.js](https://nextjs.org/) (App Router)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **AI**: [OpenAI API](https://openai.com/)
+- **AI**: [OpenRouter API](https://openrouter.ai/) (Model: `google/gemma-2-9b-it:free`)
 - **ORM**: [Drizzle ORM](https://orm.drizzle.team/)
 - **Database**: [PostgreSQL](https://www.postgresql.org/)
 - **Icons**: [Lucide React](https://lucide.dev/)

@@ -22,16 +22,19 @@ export async function POST(req: NextRequest) {
         { role: 'system', content: SYSTEM_PROMPT },
         { role: 'user', content: generateUserPrompt(body) },
       ],
-      response_format: { type: 'json_object' },
       temperature: 0.7,
     });
 
     const content = response.choices[0].message.content;
     if (!content) {
-      throw new Error('Empty response from OpenAI');
+      throw new Error('Empty response from AI provider');
     }
 
-    const parsedContent = JSON.parse(content);
+    // Некоторые модели могут возвращать JSON обернутым в блоки кода
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    const cleanedContent = jsonMatch ? jsonMatch[0] : content;
+
+    const parsedContent = JSON.parse(cleanedContent);
 
     // Save to DB
     try {
@@ -44,12 +47,11 @@ export async function POST(req: NextRequest) {
       });
     } catch (dbError) {
       console.error('Database Logging Error:', dbError);
-      // We don't fail the request if logging fails
     }
 
     return NextResponse.json(parsedContent);
   } catch (error: any) {
-    console.error('OpenAI API Error:', error);
+    console.error('AI API Error:', error);
     return NextResponse.json(
       { error: error.message || 'An error occurred while processing your request.' },
       { status: 500 }

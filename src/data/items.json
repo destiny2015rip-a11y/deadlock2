@@ -1,0 +1,18 @@
+[
+  { "id": "bullet_armor", "name": "Bullet Armor", "category": "Armor" },
+  { "id": "spirit_armor", "name": "Spirit Armor", "category": "Armor" },
+  { "id": "healing_rite", "name": "Healing Rite", "category": "Vitality" },
+  { "id": "divine_barrier", "name": "Divine Barrier", "category": "Vitality" },
+  { "id": "bullet_lifesteal", "name": "Bullet Lifesteal", "category": "Weapon" },
+  { "id": "spirit_lifesteal", "name": "Spirit Lifesteal", "category": "Spirit" },
+  { "id": "curse", "name": "Curse", "category": "Spirit" },
+  { "id": "silence_glyph", "name": "Silence Glyph", "category": "Spirit" },
+  { "id": "unstoppable", "name": "Unstoppable", "category": "Vitality" },
+  { "id": "debuff_remover", "name": "Debuff Remover", "category": "Vitality" },
+  { "id": "leech", "name": "Leech", "category": "Vitality" },
+  { "id": "toxic_bullets", "name": "Toxic Bullets", "category": "Weapon" },
+  { "id": "monster_rounds", "name": "Monster Rounds", "category": "Weapon" },
+  { "id": "lucky_shot", "name": "Lucky Shot", "category": "Weapon" },
+  { "id": "echo_shard", "name": "Echo Shard", "category": "Spirit" },
+  { "id": "warp_stone", "name": "Warp Stone", "category": "Vitality" }
+]

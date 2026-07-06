@@ -1,0 +1,23 @@
+[
+  { "id": "abrams", "name": "Abrams", "role": "Tank/Brawler" },
+  { "id": "bebop", "name": "Bebop", "role": "Displacer/Utility" },
+  { "id": "dynamo", "name": "Dynamo", "role": "Support/Crowd Control" },
+  { "id": "grey_talon", "name": "Grey Talon", "role": "Marksman/Carry" },
+  { "id": "haze", "name": "Haze", "role": "Assassin/Carry" },
+  { "id": "infernus", "name": "Infernus", "role": "DoT/Burner" },
+  { "id": "ivy", "name": "Ivy", "role": "Support/Utility" },
+  { "id": "kelvin", "name": "Kelvin", "role": "Support/Zone Control" },
+  { "id": "lady_geist", "name": "Lady Geist", "role": "Mage/Lifesteal" },
+  { "id": "lash", "name": "Lash", "role": "High Mobility/Brawler" },
+  { "id": "mcginnis", "name": "McGinnis", "role": "Builder/Pusher" },
+  { "id": "mo_and_krill", "name": "Mo & Krill", "role": "Tank/Displacer" },
+  { "id": "paradox", "name": "Paradox", "role": "Utility/Mage" },
+  { "id": "pocket", "name": "Pocket", "role": "Mage/Utility" },
+  { "id": "seven", "name": "Seven", "role": "Mage/AOE Carry" },
+  { "id": "shiv", "name": "Shiv", "role": "Brawler/Executioner" },
+  { "id": "vindicta", "name": "Vindicta", "role": "Sniper/Carry" },
+  { "id": "viscous", "name": "Viscous", "role": "Utility/Displacer" },
+  { "id": "warden", "name": "Warden", "role": "Brawler/Crowd Control" },
+  { "id": "wraith", "name": "Wraith", "role": "Assassin/Carry" },
+  { "id": "yamato", "name": "Yamato", "role": "Brawler/Executioner" }
+]

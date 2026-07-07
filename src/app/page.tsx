@@ -6,7 +6,12 @@ import { Button } from '@/components/ui/Button';
 import { Card } from '@/components/ui/Card';
 import { Sparkles, Sword, Shield, Target, Zap, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { GlitchBackground } from '@/components/GlitchBackground';
+import { InteractiveBackground } from '@/components/InteractiveBackground';
+import { SpotlightCard } from '@/components/SpotlightCard';
+import { Russo_One, Rajdhani } from 'next/font/google';
+
+const russoOne = Russo_One({ subsets: ['latin', 'cyrillic'], weight: '400' });
+const rajdhani = Rajdhani({ subsets: ['latin'], weight: ['300', '400', '500', '600', '700'] });
 
 const fadeInUp = {
   initial: { opacity: 0, y: 50 },
@@ -22,47 +27,48 @@ const staggerContainer = {
 
 export default function HomePage() {
   return (
-    <div className="relative isolate min-h-screen selection:bg-primary/30 overflow-x-hidden">
-      {/* Full Screen Interactive Background */}
-      <GlitchBackground />
-
-      {/* Ambient Glows */}
-      <div className="fixed inset-0 -z-20 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 right-1/4 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[150px] opacity-20" />
-        <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-secondary/10 rounded-full blur-[130px] opacity-20" />
-      </div>
+    <div className={`${russoOne.className} relative isolate min-h-screen selection:bg-primary/30 overflow-x-hidden`}>
+      {/* High-Performance Page-Bound Interactive Background */}
+      <InteractiveBackground />
 
       <main className="relative z-10">
-        {/* Content sections wrapper with pointer-events-auto for children */}
+        {/* Hero Section */}
         <section className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:gap-x-10 lg:px-8 lg:py-40 min-h-screen pointer-events-none">
           <motion.div 
             {...fadeInUp}
             className="mx-auto max-w-2xl lg:mx-0 lg:flex-auto pointer-events-auto"
           >
             <motion.div variants={fadeInUp} className="flex">
-              <div className="relative flex items-center gap-x-4 rounded-full px-3 py-1 text-sm leading-6 text-gray-400 ring-1 ring-white/10 hover:ring-white/20">
-                <span className="font-semibold text-primary">Deadlock AI Assistant</span>
-                <span className="h-4 w-px bg-white/10" aria-hidden="true" />
-                <a href="#" className="flex items-center gap-x-1">
-                  Доступна версия 1.0
-                  <ChevronRight className="h-3 w-3 text-gray-500" />
+              <div className="relative flex items-center gap-x-4 glass-panel px-4 py-1.5 text-xs uppercase tracking-widest text-secondary hud-tag">
+                <span className={`${rajdhani.className} font-bold`}>AI PROTOCOL: ACTIVE</span>
+                <span className="h-3 w-px bg-secondary/30" aria-hidden="true" />
+                <a href="#" className={`${rajdhani.className} flex items-center gap-x-1 hover:text-white transition-colors`}>
+                  v1.0 Patch
+                  <ChevronRight className="h-3 w-3" />
                 </a>
               </div>
             </motion.div>
-            <motion.h1 variants={fadeInUp} className="mt-10 text-4xl font-bold tracking-tight text-white sm:text-6xl text-balance">
+            <motion.h1 
+              variants={fadeInUp} 
+              className="mt-10 text-4xl text-white sm:text-6xl text-balance leading-[1.1] font-black uppercase"
+              style={{ letterSpacing: '0.04em' }}
+            >
               Побеждайте в каждом матче с <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary animate-gradient">ИИ-тренером в реальном времени</span>
             </motion.h1>
-            <motion.p variants={fadeInUp} className="mt-6 text-lg leading-8 text-gray-300">
+            <motion.p variants={fadeInUp} className={`${rajdhani.className} mt-6 text-lg leading-7 text-gray-300 font-medium`} style={{ letterSpacing: '0.02em' }}>
               Хватит гадать, какой предмет купить следующим. Наш ИИ анализирует вашу линию, сборку противника и состояние игры, чтобы мгновенно дать выигрышную стратегию.
             </motion.p>
-            <motion.div variants={fadeInUp} className="mt-10 flex items-center gap-x-6">
+            <motion.div variants={fadeInUp} className="mt-8 flex items-center gap-x-6">
               <Link href="/assistant">
-                <Button size="lg" className="glow">
+                <Button size="lg" className="glow font-bold tracking-tight">
                   Запустить ассистента
                 </Button>
               </Link>
-              <a href="#features" className="text-sm font-semibold leading-6 text-white">
-                Узнать больше <span aria-hidden="true">→</span>
+              <a 
+                href="#features" 
+                className="hud-button px-6 py-3 rounded-lg text-sm font-bold leading-none text-white transition-all hover:scale-105"
+              >
+                Узнать больше
               </a>
             </motion.div>
           </motion.div>
@@ -75,52 +81,55 @@ export default function HomePage() {
             className="mt-16 sm:mt-24 lg:mt-0 lg:flex-shrink-0 lg:flex-grow pointer-events-auto"
           >
             <div className="relative">
-              <Card className="max-w-[500px] border-primary/20 shadow-2xl relative z-10">
-                <div className="flex items-center gap-2 mb-4 text-primary">
-                  <Sparkles className="w-5 h-5" />
-                  <span className="text-sm font-bold uppercase tracking-wider">РЕКОМЕНДАЦИЯ ИИ</span>
-                </div>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between items-center mb-1">
-                      <p className="text-[10px] text-gray-500 font-mono">Abrams vs Grey Talon (Лейн)</p>
-                      <div className="flex gap-1">
-                        <div className="w-1 h-1 rounded-full bg-green-500" />
-                        <div className="w-1 h-1 rounded-full bg-green-500" />
-                        <div className="w-1 h-1 rounded-full bg-gray-600" />
+              {/* Wrapped with SpotlightCard for the interactive glow effect */}
+              <SpotlightCard className="max-w-[500px] border-primary/30 shadow-2xl relative z-10" spotlightColor="rgba(168, 85, 247, 0.25)">
+                <div className="p-8">
+                  <div className="flex items-center gap-2 mb-6 text-primary">
+                    <Sparkles className="w-6 h-6" />
+                    <span className="text-sm font-black uppercase tracking-[0.2em]">РЕКОМЕНДАЦИЯ ИИ</span>
+                  </div>
+                  <div className="space-y-6">
+                    <div>
+                      <div className="flex justify-between items-center mb-2">
+                        <p className={`${rajdhani.className} text-xs text-gray-500 font-bold uppercase tracking-widest`}>Abrams vs Grey Talon (Лейн)</p>
+                        <div className="flex gap-1.5">
+                          <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]" />
+                          <div className="w-1.5 h-1.5 rounded-full bg-gray-700" />
+                        </div>
+                      </div>
+                      <p className={`${rajdhani.className} text-lg text-gray-100 leading-relaxed font-semibold`}>
+                        "Талон сильно пробивает тебя издалека. Тебе нужно сокращать дистанцию и играть от регена."
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="p-4 rounded-xl bg-green-500/10 border border-green-500/20">
+                        <p className="text-[10px] text-green-500 font-black uppercase mb-1 tracking-tighter">Купить сейчас</p>
+                        <p className="text-sm text-white font-black">Healing Rite</p>
+                        <p className={`${rajdhani.className} text-[10px] text-gray-400 mt-1 italic font-bold`}>Для выживания</p>
+                      </div>
+                      <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20">
+                        <p className="text-[10px] text-blue-500 font-black uppercase mb-1 tracking-tighter">Купить далее</p>
+                        <p className="text-sm text-white font-black">Warp Stone</p>
+                        <p className={`${rajdhani.className} text-[10px] text-gray-400 mt-1 italic font-bold`}>Для мобильности</p>
                       </div>
                     </div>
-                    <p className="text-sm text-gray-200 leading-relaxed font-medium">
-                      "Тэлон сильно пробивает тебя издалека. Тебе нужно сокращать дистанцию и играть от регена."
-                    </p>
-                  </div>
 
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/20">
-                      <p className="text-[9px] text-green-500 font-bold uppercase mb-1">Купить сейчас</p>
-                      <p className="text-xs text-white font-semibold">Healing Rite</p>
-                      <p className="text-[10px] text-gray-400 mt-1 italic">Для выживания</p>
+                    <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Shield className="w-4 h-4 text-amber-500" />
+                        <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest">Тактика</p>
+                      </div>
+                      <p className={`${rajdhani.className} text-sm text-gray-300 leading-snug font-medium`}>
+                        Используй рывок только тогда, когда у него нет выстрела скейтом. Не давай ему стакать стрелы.
+                      </p>
                     </div>
-                    <div className="p-3 rounded-lg bg-blue-500/10 border border-blue-500/20">
-                      <p className="text-[9px] text-blue-500 font-bold uppercase mb-1">Купить далее</p>
-                      <p className="text-xs text-white font-semibold">Warp Stone</p>
-                      <p className="text-[10px] text-gray-400 mt-1 italic">Для мобильности</p>
-                    </div>
-                  </div>
-
-                  <div className="p-3 rounded-lg bg-white/5 border border-white/10">
-                    <div className="flex items-center gap-2 mb-1">
-                      <Shield className="w-3 h-3 text-amber-500" />
-                      <p className="text-[10px] text-gray-400 font-bold uppercase">Тактика</p>
-                    </div>
-                    <p className="text-[11px] text-gray-400">
-                      Используй рывок только тогда, когда у него нет выстрела скейтом. Не давай ему стакать стрелы.
-                    </p>
                   </div>
                 </div>
-              </Card>
-              <div className="absolute -top-12 -right-12 w-48 h-48 bg-secondary/10 rounded-full blur-3xl -z-10" />
-              <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl -z-10" />
+              </SpotlightCard>
+              <div className="absolute -top-12 -right-12 w-64 h-64 bg-secondary/20 rounded-full blur-[100px] -z-10" />
+              <div className="absolute -bottom-12 -left-12 w-64 h-64 bg-primary/20 rounded-full blur-[100px] -z-10" />
             </div>
           </motion.div>
         </section>
@@ -131,8 +140,8 @@ export default function HomePage() {
             {...fadeInUp}
             className="mx-auto max-w-2xl lg:text-center pointer-events-auto"
           >
-            <h2 className="text-base font-semibold leading-7 text-primary">Стратегии победы</h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+            <h2 className="text-base font-black leading-7 text-primary uppercase tracking-[0.3em]">Стратегии победы</h2>
+            <p className="mt-2 text-4xl font-black tracking-tight text-white sm:text-5xl uppercase">
               Все, что нужно для доминирования
             </p>
           </motion.div>
@@ -165,15 +174,15 @@ export default function HomePage() {
                 <motion.div 
                   key={feature.name} 
                   variants={fadeInUp} 
-                  className="flex flex-col group bg-secondary/10 border border-secondary/20 p-8 rounded-2xl hover:bg-secondary/20 transition-all duration-300 shadow-[0_0_30px_rgba(168,85,247,0.05)]"
+                  className="flex flex-col group glass-panel p-8 rounded-2xl neon-border-hover"
                 >
-                  <dt className="flex items-center gap-x-3 text-base font-semibold leading-7 text-white">
+                  <dt className="flex items-center gap-x-3 text-lg font-black leading-7 text-white uppercase tracking-tight">
                     <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-secondary/20 ring-1 ring-secondary/30 group-hover:scale-110 transition-transform duration-300">
                       <feature.icon className="h-6 w-6 text-secondary" aria-hidden="true" />
                     </div>
                     {feature.name}
                   </dt>
-                  <dd className="mt-4 flex flex-auto flex-col text-base leading-7 text-gray-300">
+                  <dd className={`${rajdhani.className} mt-4 flex flex-auto flex-col text-base leading-7 text-gray-300 font-medium`}>
                     <p className="flex-auto leading-relaxed">{feature.description}</p>
                   </dd>
                 </motion.div>
@@ -186,7 +195,7 @@ export default function HomePage() {
         <section className="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:px-8 relative pointer-events-none">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start relative z-10 pointer-events-auto">
             <div>
-              <motion.h2 {...fadeInUp} className="text-3xl font-bold tracking-tight text-white mb-8">
+              <motion.h2 {...fadeInUp} className="text-4xl font-black tracking-tight text-white mb-8 uppercase">
                 Остались вопросы?
               </motion.h2>
               <motion.div 
@@ -213,13 +222,13 @@ export default function HomePage() {
                   <motion.div 
                     key={faq.q} 
                     variants={fadeInUp} 
-                    className="bg-secondary/20 border border-secondary/40 hover:bg-secondary/30 transition-all duration-300 p-6 rounded-2xl shadow-[0_0_50px_rgba(168,85,247,0.1)]"
+                    className="glass-panel neon-border-hover p-6 rounded-2xl"
                   >
-                    <dt className="text-base font-bold text-white flex items-center gap-3">
+                    <dt className="text-base font-black text-white flex items-center gap-3 uppercase tracking-tight">
                       <div className="w-1.5 h-1.5 rounded-full bg-secondary shadow-[0_0_8px_rgba(168,85,247,0.8)]" />
                       {faq.q}
                     </dt>
-                    <dd className="mt-3 text-sm text-gray-200 leading-relaxed">
+                    <dd className={`${rajdhani.className} mt-3 text-base text-gray-200 leading-relaxed font-medium`}>
                       {faq.a}
                     </dd>
                   </motion.div>
@@ -231,53 +240,49 @@ export default function HomePage() {
               {...fadeInUp}
               className="lg:sticky lg:top-40 relative"
             >
-              <Card className="border-secondary/30 bg-secondary/5 overflow-hidden">
-                <div className="flex items-center gap-2 mb-6 text-secondary">
-                  <Target className="w-5 h-5" />
-                  <span className="text-sm font-bold uppercase tracking-widest">ГЛОБАЛЬНАЯ СТАТИСТИКА</span>
-                </div>
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/10">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center border border-green-500/30 text-green-500">
-                        <Sword className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-500 font-bold uppercase">Эффективность</p>
-                        <p className="text-lg font-bold text-white">+24% Winrate</p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-[10px] text-green-500 font-mono">Анализ билда</p>
-                    </div>
+              <SpotlightCard className="border-secondary/30" spotlightColor="rgba(168,85,247,0.15)">
+                <div className="p-8">
+                  <div className="flex items-center gap-2 mb-6 text-secondary">
+                    <Target className="w-6 h-6" />
+                    <span className="text-sm font-black uppercase tracking-[0.2em]">ГЛОБАЛЬНАЯ СТАТИСТИКА</span>
                   </div>
-
-                  <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/10">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center border border-blue-500/30 text-blue-500">
-                        <Shield className="w-5 h-5" />
-                      </div>
-                      <div>
-                        <p className="text-xs text-gray-500 font-bold uppercase">Выживаемость</p>
-                        <p className="text-lg font-bold text-white">1.8x KD Ratio</p>
+                  <div className="space-y-6">
+                    <div className="flex items-center justify-between p-5 bg-white/5 rounded-xl border border-white/10">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-lg bg-green-500/20 flex items-center justify-center border border-green-500/30 text-green-500">
+                          <Sword className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <p className="text-[10px] text-gray-500 font-black uppercase tracking-widest">Эффективность</p>
+                          <p className="text-xl font-black text-white">+24% Winrate</p>
+                        </div>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-[10px] text-blue-500 font-mono">Контр-закуп</p>
-                    </div>
-                  </div>
 
-                  <div className="p-4 bg-secondary/10 rounded-xl border border-secondary/20">
-                    <p className="text-xs text-gray-300 leading-relaxed italic">
-                      "Использование ассистента помогает игрокам быстрее адаптироваться к мете и находить оптимальные решения в сложных матчапах."
-                    </p>
-                    <div className="mt-4 flex items-center gap-2">
-                      <div className="w-6 h-6 rounded-full bg-secondary/30 border border-secondary/50" />
-                      <p className="text-[10px] text-gray-400 font-bold uppercase">Deadlock Coach Pro</p>
+                    <div className="flex items-center justify-between p-5 bg-white/5 rounded-xl border border-white/10">
+                      <div className="flex items-center gap-4">
+                        <div className="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center border border-blue-500/30 text-blue-500">
+                          <Shield className="w-6 h-6" />
+                        </div>
+                        <div>
+                          <p className="text-[10px] text-gray-500 font-black uppercase tracking-widest">Выживаемость</p>
+                          <p className="text-xl font-black text-white">1.8x KD Ratio</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-5 bg-secondary/10 rounded-xl border border-secondary/20">
+                      <p className={`${rajdhani.className} text-sm text-gray-300 leading-relaxed italic font-medium`}>
+                        "Использование ассистента помогает игрокам быстрее адаптироваться к мете и находить оптимальные решения в сложных матчапах."
+                      </p>
+                      <div className="mt-4 flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-full bg-secondary/30 border border-secondary/50" />
+                        <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em]">Coach Pro</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </Card>
+              </SpotlightCard>
             </motion.div>
           </div>
         </section>
@@ -285,8 +290,8 @@ export default function HomePage() {
         {/* Footer */}
         <footer className="border-t border-white/10 py-12 relative z-10 bg-[#020617]/80 backdrop-blur-md pointer-events-auto">
           <div className="mx-auto max-w-7xl px-6 lg:px-8 relative text-center">
-            <p className="text-sm text-gray-400">
-              &copy; 2026 Deadlock AI Assistant. Не аффилировано с Valve Corporation. Все права защищены.
+            <p className={`${rajdhani.className} text-sm text-gray-500 font-bold uppercase tracking-[0.3em]`}>
+              &copy; 2026 Deadlock AI Assistant. Все права защищены.
             </p>
           </div>
         </footer>

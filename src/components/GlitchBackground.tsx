@@ -1,72 +1,59 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 
-const Cube = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [glitchType, setGlitchType] = useState(0);
+const Cube = React.memo(({ id }: { id: number }) => {
   const controls = useAnimation();
+  const [isActive, setIsActive] = useState(false);
 
-  useEffect(() => {
-    if (isHovered) {
-      setGlitchType(Math.floor(Math.random() * 4));
-      
-      const colors = ['#9D00FF', '#FFFFFF', '#00FFCC', '#FF00CC'];
-      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+  const handlePointerEnter = useCallback(() => {
+    if (isActive) return;
+    setIsActive(true);
 
-      controls.set({ 
-        backgroundColor: randomColor,
-        boxShadow: `0 0 25px ${randomColor}`,
-        opacity: 1,
-        scale: 1.1,
-        zIndex: 50
-      });
+    const colors = ['#9D00FF', '#FFFFFF', '#00FFCC', '#FF00CC', '#7000FF'];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    
+    // Мгновенная вспышка
+    controls.set({ 
+      backgroundColor: color,
+      boxShadow: `0 0 20px ${color}`,
+      opacity: 1,
+      scale: 1.1,
+      zIndex: 10
+    });
 
-      const timer = setTimeout(() => {
-        controls.start({ 
-          backgroundColor: 'rgba(71, 85, 105, 0.2)', 
-          boxShadow: '0 0 0px rgba(0,0,0,0)',
-          opacity: 0.5,
-          scale: 1,
-          zIndex: 1,
-          transition: { duration: 4 } 
-        });
-        setIsHovered(false);
-      }, 400);
-      return () => clearTimeout(timer);
-    }
-  }, [isHovered, controls]);
+    // Плавное затухание (шлейф)
+    setTimeout(() => {
+      controls.start({ 
+        backgroundColor: 'rgba(71, 85, 105, 0.1)', 
+        boxShadow: '0 0 0px rgba(0,0,0,0)',
+        opacity: 0.2,
+        scale: 1,
+        zIndex: 1,
+        transition: { duration: 3.5, ease: "easeOut" } 
+      }).then(() => setIsActive(false));
+    }, 150);
+  }, [isActive, controls]);
 
   return (
     <motion.div
-      onMouseEnter={() => setIsHovered(true)}
+      onPointerMove={handlePointerEnter}
       animate={controls}
-      initial={{ backgroundColor: 'rgba(71, 85, 105, 0.2)', opacity: 0.5 }}
-      className="w-full h-full cursor-crosshair border-[0.5px] border-white/10 relative overflow-hidden"
-    >
-      {isHovered && (
-        <div className="absolute inset-0 pointer-events-none">
-          {glitchType === 1 && <div className="w-full h-[3px] bg-white absolute top-1/2 -translate-y-1/2" />}
-          {glitchType === 2 && (
-            <div className="flex flex-col gap-[3px] h-full w-full p-[2px]">
-              <div className="h-[2px] w-full bg-cyan-400" />
-              <div className="h-[2px] w-1/2 bg-white" />
-            </div>
-          )}
-          {glitchType === 3 && <div className="absolute inset-0 bg-white/30" />}
-        </div>
-      )}
-    </motion.div>
+      initial={{ backgroundColor: 'rgba(71, 85, 105, 0.1)', opacity: 0.2 }}
+      className="w-full h-full border-[0.5px] border-white/5 relative"
+    />
   );
-};
+});
+
+Cube.displayName = 'Cube';
 
 export const GlitchBackground = () => {
   const [dimensions, setDimensions] = useState({ cols: 0, rows: 0 });
 
   useEffect(() => {
     const calculateGrid = () => {
-      const cellSize = 45; 
+      const cellSize = 30; // Плотная сетка для шлейфа
       const cols = Math.ceil(window.innerWidth / cellSize);
       const rows = Math.ceil(window.innerHeight / cellSize);
       setDimensions({ cols, rows });
@@ -77,9 +64,15 @@ export const GlitchBackground = () => {
     return () => window.removeEventListener('resize', calculateGrid);
   }, []);
 
-  const totalCubes = useMemo(() => dimensions.cols * dimensions.rows, [dimensions]);
+  const cubes = useMemo(() => {
+    const total = dimensions.cols * dimensions.rows;
+    if (total === 0) return null;
+    return Array.from({ length: total }).map((_, i) => (
+      <Cube key={i} id={i} />
+    ));
+  }, [dimensions]);
 
-  if (totalCubes === 0) return null;
+  if (!cubes) return null;
 
   return (
     <div 
@@ -87,12 +80,11 @@ export const GlitchBackground = () => {
       style={{ 
         gridTemplateColumns: `repeat(${dimensions.cols}, 1fr)`,
         gridTemplateRows: `repeat(${dimensions.rows}, 1fr)`,
-        zIndex: -1
+        zIndex: -1,
+        touchAction: 'none'
       }}
     >
-      {Array.from({ length: totalCubes }).map((_, i) => (
-        <Cube key={i} />
-      ))}
+      {cubes}
     </div>
   );
 };

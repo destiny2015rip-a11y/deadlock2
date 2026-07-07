@@ -7,15 +7,128 @@
 }
 
 :root {
-  --background: #020617;
+  --background: #0b0c10;
   --foreground: #f8fafc;
 }
 
 body {
-  background: var(--background);
+  background-color: #020617;
   color: var(--foreground);
   min-height: 100vh;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* Возвращаем оригинальный красивый темный фон */
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Трехточечный градиент: фиолетовый -> розовый в центре -> темный внизу */
+  background: linear-gradient(180deg, 
+    #1a0633 0%, 
+    #ff4b2b 50%, 
+    #0a041a 100%
+  );
+  filter: blur(100px);
+  opacity: 0.25;
+  z-index: -100;
+  pointer-events: none;
+}
+
+/* Глобальный межбуквенный интервал для читаемости игрового шрифта */
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: 0.05em !important;
+}
+
+p, a, span, button, input, select, textarea {
+  letter-spacing: 0.03em !important;
+}
+
+.tracking-wider-custom {
+  letter-spacing: 0.1em !important;
+}
+
+body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #020617;
+  z-index: -101;
+  pointer-events: none;
+}
+
+
+.glass-panel {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.neon-border-hover {
+  transition: all 0.4s ease;
+}
+
+.neon-border-hover:hover {
+  border-color: rgba(168, 85, 247, 0.8);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+
+.hud-button {
+  background: rgba(168, 85, 247, 0.05);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hud-button:hover {
+  background: rgba(168, 85, 247, 0.2);
+  border-color: rgba(168, 85, 247, 1);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Принудительное удаление капса везде, кроме разрешенных мест */
+* {
+  text-transform: none !important;
+}
+
+.keep-caps {
+  text-transform: uppercase !important;
+}
+
+
+.glass-panel {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.neon-border-hover {
+  transition: all 0.4s ease;
+}
+
+.neon-border-hover:hover {
+  border-color: rgba(168, 85, 247, 0.8);
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+}
+
+.hud-border {
+  position: relative;
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+
+.hud-tag {
+  font-family: var(--font-rajdhani);
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
 }
 
 .glass {

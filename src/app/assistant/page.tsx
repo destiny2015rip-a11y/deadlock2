@@ -7,7 +7,8 @@ import { AssistantRequest, AssistantResponse } from '@/types';
 import { Card } from '@/components/ui/Card';
 import { ArrowLeft, History, Sparkles } from 'lucide-react';
 import Link from 'next/link';
-import { GlitchBackground } from '@/components/GlitchBackground';
+import { InteractiveBackground } from '@/components/InteractiveBackground';
+import { SpotlightCard } from '@/components/SpotlightCard';
 
 export default function AssistantPage() {
   const [isLoading, setIsLoading] = useState(false);
@@ -58,8 +59,8 @@ export default function AssistantPage() {
 
   return (
     <div className="relative isolate min-h-screen selection:bg-primary/30 overflow-x-hidden">
-      {/* Full Screen Interactive Background */}
-      <GlitchBackground />
+      {/* High-performance Interactive Trail Background */}
+      <InteractiveBackground />
 
       <main className="relative z-10 pt-24 pb-12 px-4">
         <div className="max-w-6xl mx-auto space-y-8 pointer-events-none">
@@ -102,7 +103,7 @@ export default function AssistantPage() {
               )}
             </div>
 
-            <div className="lg:col-span-7 pointer-events-auto">
+            <div className="lg:col-span-7 pointer-events-auto h-full">
               {isLoading ? (
                 <div className="h-full min-h-[400px] flex flex-col items-center justify-center space-y-4 glass rounded-2xl">
                   <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
@@ -119,7 +120,11 @@ export default function AssistantPage() {
                   </div>
                 </Card>
               ) : response ? (
-                <ResponseDisplay response={response} />
+                <SpotlightCard className="border-primary/20" spotlightColor="rgba(99, 102, 241, 0.15)">
+                  <div className="p-1">
+                    <ResponseDisplay response={response} />
+                  </div>
+                </SpotlightCard>
               ) : (
                 <div className="h-full min-h-[400px] flex flex-col items-center justify-center text-center p-8 border-2 border-dashed border-white/10 rounded-2xl glass backdrop-blur-md">
                   <Sparkles className="w-12 h-12 text-gray-600 mb-4" />

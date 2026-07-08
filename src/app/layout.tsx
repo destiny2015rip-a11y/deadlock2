@@ -35,6 +35,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </Link>
             <div className={`${rajdhani.className} hidden sm:flex items-center gap-6 text-sm font-semibold text-gray-300 relative z-[100]`}>
               <Link href="/" className="hover:text-white transition-colors">Главная</Link>
+              <Link href="/#patchnotes" className="hover:text-white transition-colors">Что нового</Link>
               <Link href="/assistant" className="hover:text-white transition-colors">Ассистент</Link>
               <Link href="#features" className="hover:text-white transition-colors">Возможности</Link>
             </div>
